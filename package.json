@@ -1,0 +1,31 @@
+{
+  "name": "lea",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MilanPalSingh/Lea.git"
+  },
+  "author": "milan singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MilanPalSingh/Lea/issues"
+  },
+  "homepage": "https://github.com/MilanPalSingh/Lea#readme",
+  "dependencies": {
+    "apiai": "^4.0.3",
+    "botbuilder": "^3.11.0",
+    "botbuilder-slack-extension": "^1.1.1",
+    "deamon": "^1.0.0",
+    "restify": "^6.2.0",
+    "restify-errors": "^5.0.0",
+    "restify-plugins": "^1.6.0",
+    "slackbots": "^1.1.0",
+    "uuid": "^3.1.0"
+  }
+}
