@@ -16,15 +16,30 @@ module.exports = {
 	},
 	getResponse: function(text){
 		var _this = this;
+
 	    return new Promise(function(resolve, reject){
 	        // console.log("get msg");
 	        // console.log(_bot);
+	        let response="";
+	        if(text == 'reset'){
+	        	response ="starting a new search";
+	        	_event.reset();
+	        	resolve(response);
+	        }
+
 	        _bot.get(text).then(function(data){
 	        	// console.log(data);
 	        	_this.eventBuilder(data);
-	        	var response = _this.getMissingVaule();
-	        	response = "missing values: " + response+"\n";
-	        	response += _event.print();
+	        	let missValue = _this.getMissingVaule();
+	        	if(missValue.length !=0){
+		        	// response = "missing values: " + response[0]+"\n";
+		        	console.log(missValue);
+		        	if(missValue[0] == "location") response += "What's you location \n";
+		        	else if(missValue[0] == "eventType") response += "what event you looking for \n";
+		        	else if(missValue[0] == "time") response += "Date? \n";
+	        	}else{ 
+	        		response += _event.print();
+	        	}
 	        	resolve(response);
 	        }).catch(errorHandler);
 	    });
@@ -32,13 +47,14 @@ module.exports = {
 
 	eventBuilder: function(data){
 		if (data.result.metadata.intentName == 'Search') {
-			console.log(data);
-			console.log("in the search intent");
+			// console.log(data);
+			// console.log("in the search intent");
 			// console.log(_event.getLocation());
 			var geoCity = data.result.parameters['geo-city'].length ==0? false : data.result.parameters['geo-city'][0] ;
+			var eventType = data.result.parameters['event-type'].length ==0? false : data.result.parameters['event-type'][0] ;
 			
 			_event.setLocation( geoCity || _event.getLocation() );
-			_event.setEventType( data.result.parameters['event-type'] || _event.getEventType() );
+			_event.setEventType( eventType || _event.getEventType() );
 			_event.setTime( data.result.parameters['date'] || _event.getTime() );
 			console.log("location", "Time", "event");
 			console.log(_event.getLocation(), _event.getTime(), _event.getEventType() );
